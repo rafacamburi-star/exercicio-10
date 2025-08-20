@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# VSCode
+.vscode/
+
+# TypeScript
+*.tsbuildinfo
