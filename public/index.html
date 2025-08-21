@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Validação de Documentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Validação de Documentos</h1>
+
+  <!-- CPF -->
+  <div>
+    <label for="cpfInput">Digite o CPF:</label>
+    <input type="text" id="cpfInput">
+    <button onclick="validarCPF()">Validar CPF</button>
+    <p id="cpfResult"></p>
+  </div>
+
+  <!-- CNPJ -->
+  <div>
+    <label for="cnpjInput">Digite o CNPJ:</label>
+    <input type="text" id="cnpjInput">
+    <button onclick="validarCNPJ()">Validar CNPJ</button>
+    <p id="cnpjResult"></p>
+  </div>
+
+  <!-- CNH -->
+  <div>
+    <label for="cnhInput">Digite a CNH:</label>
+    <input type="text" id="cnhInput">
+    <button onclick="validarCNH()">Validar CNH</button>
+    <p id="cnhResult"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
