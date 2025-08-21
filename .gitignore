@@ -1,8 +1,12 @@
 # Node modules
 node_modules/
 
-# Build output
+# Pastas de build/compilação
 dist/
+build/
+
+# Arquivos de ambiente
+.env
 
 # Logs
 *.log
@@ -11,3 +15,8 @@ npm-debug.log*
 # VSCode
 .vscode/
 *.tsbuildinfo
+
+# Sistema
+.DS_Store
+Thumbs.db
+
