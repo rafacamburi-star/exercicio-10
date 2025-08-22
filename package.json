@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts"
-  
   },
   "keywords": [],
   "author": "",
@@ -13,6 +12,7 @@
   "dependencies": {
     "cpf-cnpj-validator": "^1.0.3",
     "express": "^5.1.0",
+    "nedb": "^1.8.0",
     "validation-br": "^1.5.2"
   },
   "devDependencies": {

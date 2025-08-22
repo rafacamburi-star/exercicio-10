@@ -4,9 +4,11 @@ import { cpf, cnpj } from "cpf-cnpj-validator";
 import { AppError } from "./errors/AppError";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { asyncHandler } from "./utils/asyncHandler";
+import { UserRepository } from "./repositories/UserRepository";
 
 const app = express();
 const port = 3000;
+const userRepo = new UserRepository();
 
 // Middleware de logging
 function logger(req: Request, _res: Response, next: NextFunction) {
@@ -25,7 +27,7 @@ function validarCNH(value: string): boolean {
   return /^\d{11}$/.test(value);
 }
 
-// Rotas síncronas
+// Rotas de validação
 app.get("/valida-cpf/:cpf", (req: Request<{ cpf: string }>, res: Response) => {
   const { cpf: cpfParam } = req.params;
   const valido = cpf.isValid(cpfParam);
@@ -67,6 +69,42 @@ app.get(
   })
 );
 
+// Rotas de usuário
+app.post(
+  "/users",
+  asyncHandler(async (req, res) => {
+    const { name, email } = req.body;
+    if (!name || !email) throw new AppError("Name e email são obrigatórios", 400);
+    const user = await userRepo.create({ name, email });
+    res.status(201).json(user);
+  })
+);
+
+app.get(
+  "/users",
+  asyncHandler(async (_req, res) => {
+    const users = await userRepo.getAll();
+    res.json(users);
+  })
+);
+
+app.get(
+  "/users/:id",
+  asyncHandler(async (req, res) => {
+    const user = await userRepo.getById(Number(req.params.id));
+    if (!user) throw new AppError("Usuário não encontrado", 404);
+    res.json(user);
+  })
+);
+
+app.delete(
+  "/users/:id",
+  asyncHandler(async (req, res) => {
+    await userRepo.delete(Number(req.params.id));
+    res.status(204).send();
+  })
+);
+
 // 404 centralizado
 app.use((req: Request, _res: Response, next: NextFunction) => {
   next(new AppError(`Rota ${req.method} ${req.originalUrl} não encontrada`, 404));
@@ -79,3 +117,4 @@ app.use(errorMiddleware);
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port} 🚀`);
 });
+
